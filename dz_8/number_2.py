@@ -1,20 +1,23 @@
 from number_1 import jacoby
-from pprint import pprint
 
 
-def generate_seidel_data(n, eps, max_iter):
-    return [3] * n, [-1] * n, [-1] * n, [2] + [1] * (n - 2) + [2], [0] * n, eps, max_iter
+def generate_jacoby_data(n, main_elem, side_elem, b):
+    return [side_elem] * n, [main_elem] * n, [side_elem] * n, b, [0] * n
 
 
 if __name__ == "__main__":
-    result_1 = jacoby(*generate_seidel_data(n=10, eps=1e-6, max_iter=1000))
-    pprint(result_1[0])
-    print(f"iterations: {result_1[-1]}\nerror: {result_1[-2]}\n")
+    n = 100
+    b = [2] + [1] * (n - 2) + [2]
+    eps = 1e-6
+    max_iter = 100000
+    exact_solution = [1] * n
+    solution = jacoby(*generate_jacoby_data(n, 3, -1, b), eps, max_iter, exact_solution)
+    print(solution)
+    print(f"iter: {solution[1]}\nrel_error: {solution[2]}\nrev_error: {solution[3]}")
 
-    result_3 = jacoby(*generate_seidel_data(n=100, eps=1e-6, max_iter=1000))
-    pprint(result_3[0])
-    print(f"iterations: {result_3[-1]}\nerror: {result_3[-2]}\n")
-
-    result_2 = jacoby(*generate_seidel_data(n=1000000, eps=1e-6, max_iter=1000))
-    pprint(result_2[0])
-    print(f"iterations: {result_2[-1]}\nerror: {result_2[-2]}")
+    n = 100000
+    b = [2] + [1] * (n - 2) + [2]
+    exact_solution = [1] * n
+    solution = jacoby(*generate_jacoby_data(n, 3, -1, b), eps, max_iter, exact_solution)
+    print(solution)
+    print(f"iter: {solution[1]}\nrel_error: {solution[2]}\nrev_error: {solution[3]}")
