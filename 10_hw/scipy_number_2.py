@@ -16,7 +16,7 @@ def build_plot(x, y, dydx_start, dydx_end):
     plt.ylabel("S(x)")
     plt.legend()
     plt.grid(True)
-    plt.savefig("numpy_number_2")
+    plt.savefig("scipy_number_2")
 
 
 if __name__ == "__main__":

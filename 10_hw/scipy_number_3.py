@@ -1,14 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+from scipy.interpolate import CubicSpline
 
 def build_plot(x, y):
-    spl = np.polyfit(x, y, 3)
+    cs = CubicSpline(x, y, bc_type='clamped')  # Используем bc_type='clamped' для краевых условий
 
-    S = np.poly1d(spl)
-
-    x_values = np.linspace(0, 4)
-    y_values = S(x_values)
+    x_values = np.linspace(0, np.pi / 2, 100)
+    y_values = cs(x_values)
 
     plt.plot(x_values, y_values, label="Зажатый кубический сплайн")
     plt.plot(x_values, np.cos(x_values), label="cos(x)")
@@ -18,8 +16,7 @@ def build_plot(x, y):
     plt.title("Зажатый кубический сплайн, интерполирующий cos(x)")
     plt.legend()
     plt.grid(True)
-    plt.savefig("numpy_number_3")
-
+    plt.savefig("scipy_number_3")
 
 if __name__ == "__main__":
     x = np.linspace(0, np.pi / 2, 5)
