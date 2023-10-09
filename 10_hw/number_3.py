@@ -6,15 +6,9 @@ def build_plot(x, y):
     n = len(x)
     h = [x[i + 1] - x[i] for i in range(n - 1)]
 
-    alpha = [0] * (n - 1)
-    beta = [0] * (n - 1)
     l = [1] * n
     mu = [0] * n
     z = [0] * n
-
-    for i in range(1, n - 1):
-        alpha[i] = h[i - 1] / (h[i - 1] + h[i])
-        beta[i] = 1 - alpha[i]
 
     for i in range(1, n - 1):
         l[i] = 2 * (x[i + 1] - x[i - 1]) - h[i - 1] * mu[i - 1]
